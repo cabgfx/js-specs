@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <title><%= yield :title %></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic" rel="stylesheet"> -->
+    <script src="http://use.typekit.com/cfv8eux.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
+    <%= stylesheet_link_tag "application" %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%- if flash.present? -%>
+        <aside class="row">
+          <div class="span8 offset2">
+            <%- flash.each do |key, msg| -%>
+              <div class="alert alert-<%= key %>">
+                <a class="close" data-dismiss="alert">x</a>
+                <p><%= msg %></p>
+              </div>
+            <%- end -%>
+          </div>
+        </aside>
+      <%- end -%>
+
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>
