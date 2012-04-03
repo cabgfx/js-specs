@@ -1,13 +1,12 @@
 # encoding: UTF-8
 
-# require 'spork'
-# 
-# Spork.prefork do
+require 'spork'
+
+Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'capybara/rspec'
-  require 'factory_girl_rails'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
@@ -22,13 +21,12 @@
     Capybara.javascript_driver = :webkit
 
     Rails.logger.level = 4 # speed - http://blog.plataformatec.com.br/tag/capybara/
-
   end
-# end
+end
 
-# Spork.each_run do
-
-
+Spork.each_run do
+  require 'factory_girl_rails'
+  
   # Forces all threads to share the same connection, works on Capybara because it starts the web server in a thread.
   # See http://blog.plataformatec.com.br/tag/capybara/
   class ActiveRecord::Base
@@ -41,4 +39,4 @@
   end
   
   ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
-# end
+end
